@@ -25,10 +25,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin/api/**").hasRole("ADMIN")
                 .antMatchers("/user/api/**").hasRole("USER")
-                .antMatchers("/app/api/**").permitAll()
+                .antMatchers("/app/api/**", "/captcha.jpg").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/myLogin.html").permitAll();
+                .formLogin().loginPage("/myLogin.html").permitAll()
+                .and()
+                .csrf().disable();
     }
 
     @Override
